@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<title>Title</title>
+	<style>
+		td {
+			padding-left: 10px;
+			padding-right: 25px;
+		}
+
+		td p {
+			margin: 5px auto;
+			float: right;
+			position: relative;
+		}
+	</style>
+</head>
+<body>
+<table border="1px solid black" style="border-collapse: collapse; margin: auto">
+	<tr style="text-align: center;background-color:#7bc960">
+		<td>标题</td>
+		<td>创建日期</td>
+		<td>创建用户</td>
+		<td>内容</td>
+		<td>操作</td>
+	</tr>
+	<tr th:each="page : ${map.diaryPage}" style="">
+		<td th:text="*{page.title}"></td>
+		<td th:text="*{#dates.format(page.createTime,'yyyy-MM-dd')}"></td>
+		<td th:text="*{page.createUser}"></td>
+		<td th:text="(*{page.content.length()}<15) ? (*{page.content}) : (*{#strings.substring(page.content,0,15)}+'...')"></td>
+		<td><a>
+			<button th:onclick="'javascript:detail('+*{page.id}+')'">详细</button>
+		</a> <a>
+			<button th:onclick="'javascript:del('+*{page.id}+')'">删除</button>
+		</a>
+
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2"><a href="/exit"><button>安全退出</button></a></td>
+		<td colspan="3" style="padding: 0 ">
+			<p><a href="/history"><button>回收站</button></a></p><span>  </span>
+			<p><a href="/edit">
+				<button>新建日记</button>
+			</a></p>
+		</td>
+	</tr>
+</table>
+
+</body>
+<script>
+    function detail(id) {
+        window.location.href = "/detail?id=" + id;
+    }
+
+    function del(id) {
+        if (!confirm("确定删除?")) {
+            return;
+        }
+        var url = "/delete"
+	    var param = {"id":id}
+	    $.post(url,param,function(result){
+	        if(result.success){
+	            confirm(result.message)
+	            window.location.href="/all"
+	        }else{
+	            alert("删除失败")
+	        }
+	    })
+    }
+
+</script>
+</html>

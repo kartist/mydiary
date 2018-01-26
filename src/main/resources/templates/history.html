@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+历史记录
+<table border="1px solid black">
+	<tr>
+		<td>标题</td>
+		<td>删除时间</td>
+		<td>操作</td>
+	</tr>
+	<tr th:each="data : ${pages}">
+		<td th:text="*{data.title}" ></td>
+		<td th:text="*{#dates.format(data.updateTime,'yyyy-MM-dd')}" ></td>
+		<td>
+			<a class="recover" th:data="${data.id}" th:onclick="'recover('+${data.id}+')'">
+				<button>恢复</button>
+			</a>
+			<a class="delete" th:onclick="'deleteData('+${data.id}+')'">
+				<button>彻底删除</button>
+			</a>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<a href="/all" ;">
+			<button>返回</button>
+			</a>
+		</td>
+	</tr>
+
+</table>
+<script src="/js/jquery.js"></script>
+<script>
+    function deleteData(id) {
+        if (!confirm("确定真的删除?删除后无法恢复")) {
+           return;
+        }
+        $.post("/relDelete", {"id": id}, function (result) {
+            alert(result.message)
+	        if(result.success){
+                location.reload();
+	        }
+        });
+    }
+    function recover(id){
+        if (!confirm("恢复?")) {
+            return;
+        }
+        $.post("/recover", {"id": id}, function (result) {
+            alert(result.message);
+            if(result.success){
+                location.reload();
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

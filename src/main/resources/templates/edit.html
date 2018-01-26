@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>我的日记</title>
+	<style>
+		form{
+			padding: 15px 20px;
+		}
+	</style>
+</head>
+<body>
+<div>
+	<form action="/save" method="post" th:action="${page} ? '/update':'/save'">
+		<h3>日记标题:<input name="title" th:value="${page} ? ${page.title}:''"></h3>
+		<p>
+			日记本:<select name="bookId">
+			<option th:each="book : ${books}" th:text="*{book.name}" th:value="*{book.id}">1</option>
+		</select>
+		</p>
+		<p>
+			天气:<select name="weatherId">
+			<option th:each="weather : ${weathers}" th:value="*{weather.id}" th:text="*{weather.weather}">1</option>
+		</select>
+		</p>
+		<textarea name="content" style="width: 500px ;height: 300px"
+		          th:text="${page} ? ${page.content} : ''"></textarea><br/>
+		<input type="submit" value="保存"/><br/>
+		<input type="hidden" name="userName" value="testUser">
+		<input type="hidden" name="id" th:value="${page} ? ${page.id} : ''">
+	</form>
+	<a href="/all"><button>查看所有日记</button></a>
+
+</div>
+</body>
+</html>

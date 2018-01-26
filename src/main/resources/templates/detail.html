@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<style>
+		body {
+			padding: 10px 20px;
+		}
+	</style>
+</head>
+<body>
+
+<form action="/save" method="post">
+	<p>title :<span th:text="${page.title}"></span><br/></p>
+	<div>content:<br/>
+		<textarea th:text="${page.content}" style="width: 600px ;height: 800px"></textarea>
+		<input type="submit">
+		<input type="hidden" name="diaryId">
+	</div>
+
+
+</form>
+</body>
+<script>
+
+
+
+
+
+</script>
+</html>
