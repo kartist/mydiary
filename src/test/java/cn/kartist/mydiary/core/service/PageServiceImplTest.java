@@ -5,6 +5,8 @@ import cn.kartist.mydiary.common.entity.User;
 import cn.kartist.mydiary.core.entity.DiaryPage;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
@@ -15,6 +17,8 @@ public class PageServiceImplTest extends MydiaryApplicationTests {
     @Autowired
     private PageService diaryService;
 
+    @Transactional
+    @Rollback
     @Test
     public void save() throws Exception {
         DiaryPage diaryPage = new DiaryPage();
@@ -24,7 +28,7 @@ public class PageServiceImplTest extends MydiaryApplicationTests {
         diaryPage.setContent("日记内容");
         Exception result = null;
         try {
-            diaryService.save(diaryPage,new User("testUser",""));
+            diaryService.save(diaryPage, new User("testUser", ""));
         } catch (Exception e) {
             e.printStackTrace();
             result = e;
@@ -35,7 +39,7 @@ public class PageServiceImplTest extends MydiaryApplicationTests {
 
     @Test
     public void getAllDiary() throws Exception {
-        Map result  = diaryService.getAllDiary();
+        Map result = diaryService.getAllDiary();
         assertNotNull(result);
         logger.info(result.toString());
     }

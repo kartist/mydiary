@@ -30,7 +30,7 @@
 	</tr>
 	<tr th:each="page : ${map.diaryPage}" style="">
 		<td th:text="*{page.title}"></td>
-		<td th:text="*{#dates.format(page.createTime,'yyyy-MM-dd')}"></td>
+		<td th:text="*{#dates.format(page.createTime,'yy.MM.dd HH:mm')}"></td>
 		<td th:text="*{page.createUser}"></td>
 		<td th:text="(*{page.content.length()}<15) ? (*{page.content}) : (*{#strings.substring(page.content,0,15)}+'...')"></td>
 		<td><a>

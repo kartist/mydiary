@@ -16,7 +16,7 @@
 	</tr>
 	<tr th:each="data : ${pages}">
 		<td th:text="*{data.title}" ></td>
-		<td th:text="*{#dates.format(data.updateTime,'yyyy-MM-dd')}" ></td>
+		<td th:text="*{#dates.format(data.updateTime,'MM-dd HH:mm')}"></td>
 		<td>
 			<a class="recover" th:data="${data.id}" th:onclick="'recover('+${data.id}+')'">
 				<button>恢复</button>
@@ -28,7 +28,7 @@
 	</tr>
 	<tr>
 		<td colspan="3">
-			<a href="/all" ;">
+			<a href="/all">
 			<button>返回</button>
 			</a>
 		</td>
