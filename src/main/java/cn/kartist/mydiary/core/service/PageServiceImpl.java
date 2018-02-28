@@ -48,6 +48,7 @@ public class PageServiceImpl implements PageService {
         final DiarypageExample example = new DiarypageExample();
         example.setLimit(10);
         example.setOffset(offSet);
+        example.setOrderByClause("update_time desc");
         List list = diaryPageDao.selectByExample(example);
         map.put("diaryPage", list);
         return map;
