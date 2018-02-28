@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
->
+      xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>秘密空间</title>
 	<style>
+		body, table, tr, td, div {
+			border: 1px solid palevioletred;
+		}
+
 		table {
 			margin: 0 auto;
 			border-collapse: collapse;
@@ -16,38 +20,40 @@
 			width: 780px;
 		}
 
-		th {
-			text-align: left;
+		td {
 		}
+
+		.input-area {
+			margin: 0 auto;
+		}
+
 	</style>
 
 </head>
 <body>
 <div>
 	<h2>秘密空间</h2>
-	<table>
-		<tr class="words">
+	<table class="words">
+		<tr>
 			<td>01-26 22:00:21</td>
 			<td>shally</td>
 			<td>臭球球,晚上我们看电影去吧,怎么样,就在来福士4楼的电影院</td>
 		</tr>
-		<tr class="title">
-			<th>
-			<td colspan="3">
-				<textarea></textarea>
-				<button class="speak-btn" onclick="speak()">我说</button>
-			</td>
-			</th>
-		</tr>
-
-
 	</table>
+	<div class="input-area">
+		<textarea></textarea>
+		<button class="speak-btn" onclick="speak()">我说</button>
+	</div>
 </div>
-<script src="../../static/js/jquery.js"></script>
-<script>
+<script src="../../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+<script th:inline="javascript">
     function speak() {
-        var tr = "<tr></tr>";
-        var td = "<td>22:00:56</td>"
+        var tdContent = "<td>" + /*[[${#dates.createNow()]]*/ +"</td>" + "<td>" + [[${session.user}]] + "</td>";
+        var td = $(tdContent);
+        var tr = $("<tr></tr>");
+        tr.html(td);
+        var table = $(".words");
+        table.last().append(tr);
     }
 </script>
 </body>

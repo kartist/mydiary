@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<style>
+		body {
+			padding: 30px 50px;
+		}
+
+		div {
+			margin: 0 auto;
+		}
+
+		textarea {
+			width: 20em;
+			height: 10em;
+			font-size: 20px;
+		}
+	</style>
+</head>
+<body>
+<div>
+	<h4 th:text="${user}+':'">:</h4>
+</div>
+<div>
+	<h1 th:text="${msg}">hello</h1>
+	<button onclick="set()">修改留言板</button>
+</div>
+<br/>
+<div id="fid" style="visibility: hidden">
+	<form action="index" method="post">
+		<textarea type="text" name="msg"></textarea>
+		<input type="submit" value="确定"/>
+	</form>
+
+</div>
+</body>
+<script>
+    function set() {
+        var visiable = document.getElementById("fid").style.visibility;
+        if (visiable) {
+            document.getElementById("fid").style.visibility = "";
+        } else {
+            document.getElementById("fid").style.visibility = "hidden";
+        }
+    }
+
+
+</script>
+</html>
