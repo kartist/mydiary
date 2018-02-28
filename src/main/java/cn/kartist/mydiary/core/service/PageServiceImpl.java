@@ -37,10 +37,18 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public Map<String, Object> getAllDiary() {
+    public Map<String, Object> getAllDiary(Integer page) {
+        if (page == null) {
+            page = 1;
+        }
+        int offSet = (page - 1) * 10;
+
         Map<String, Object> map = new HashMap<>();
 
-        List list = diaryPageDao.selectByExample(new DiarypageExample());
+        final DiarypageExample example = new DiarypageExample();
+        example.setLimit(10);
+        example.setOffset(offSet);
+        List list = diaryPageDao.selectByExample(example);
         map.put("diaryPage", list);
         return map;
     }

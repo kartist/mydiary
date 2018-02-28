@@ -39,7 +39,7 @@ public class PageServiceImplTest extends MydiaryApplicationTests {
 
     @Test
     public void getAllDiary() throws Exception {
-        Map result = diaryService.getAllDiary();
+        Map result = diaryService.getAllDiary(1);
         assertNotNull(result);
         logger.info(result.toString());
     }

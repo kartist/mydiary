@@ -20,7 +20,7 @@ public interface PageService {
     /**
      * 获取
      */
-    Map<String, Object> getAllDiary();
+    Map<String, Object> getAllDiary(Integer page);
 
     DiaryPage getDiaryPageById(Integer id);
 

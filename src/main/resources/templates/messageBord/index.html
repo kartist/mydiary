@@ -24,11 +24,22 @@
 </head>
 <body>
 <div>
-	<h4 th:text="${user}+':'">:</h4>
+	<h4 th:text="${date2?:''}+' '+${user2?:''}">:</h4>
 </div>
 <div>
-	<h1 th:text="${msg}">hello</h1>
-	<button onclick="set()">修改留言板</button>
+	<h1 th:text="${msg2}">hello</h1>
+</div>
+<div>
+	<h4 th:text="${date1?:''}+' '+${user1?:''}">:</h4>
+</div>
+<div>
+	<h1 th:text="${msg1}">hello</h1>
+	<button onclick="set()">留言</button>
+	<a href="/index">
+		<button>回首页</button>
+	</a> <a href="/login">
+	<button>登录</button>
+</a>
 </div>
 <br/>
 <div id="fid" style="visibility: hidden">

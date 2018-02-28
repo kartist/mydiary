@@ -9,6 +9,7 @@ import cn.kartist.mydiary.core.service.WeatherService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -138,10 +139,9 @@ public class MyDiaryController {
      * @return
      */
     @RequestMapping("all")
-    public String getAll(Model model) {
-        Map map = pageService.getAllDiary();
+    public String getAll(Model model, Integer page) {
+        Map map = pageService.getAllDiary(page);
         model.addAttribute("map", map);
-        logger.info(map.toString());
         return "all";
     }
     @ResponseBody
