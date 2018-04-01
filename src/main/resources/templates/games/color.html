@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<!-- saved from url=(0061)http://www.17sucai.com/preview/847335/2018-03-14/fk/demo.html -->
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>洪水大作战</title>
+
+
+	<style>
+		@import url("https://fonts.googleapis.com/css?family=Bubblegum+Sans");
+		/* colors */
+		.a, .a-x {
+			background: #573659;
+		}
+
+		.b, .b-x {
+			background: #ad4375;
+		}
+
+		.c, .c-x {
+			background: #fa7370;
+		}
+
+		.d, .d-x {
+			background: #f59231;
+		}
+
+		.e, .e-x {
+			background: #fecd5f;
+		}
+
+		.f, .f-x {
+			background: #9ccf5e;
+		}
+
+		.g, .g-x {
+			background: #3cad5b;
+		}
+
+		.h, .h-x {
+			background: #36cbbf;
+		}
+
+		.i, .i-x {
+			background: #1d839c;
+		}
+
+		.j, .j-x {
+			background: #2f506c;
+		}
+
+		body {
+			margin: 0;
+			height: 100vh;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			align-items: center;
+			-webkit-box-pack: center;
+			-ms-flex-pack: center;
+			justify-content: center;
+			font-size: calc(1em + 1vmin);
+			font-family: 'Bubblegum Sans', Helvetica, FontAwesome, sans-serif;
+			background: #212429;
+			color: #fffced;
+		}
+
+		.controls {
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-pack: justify;
+			-ms-flex-pack: justify;
+			justify-content: space-between;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			padding: 1em 0;
+		}
+
+		#board {
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-orient: horizontal;
+			-webkit-box-direction: normal;
+			-ms-flex-flow: row wrap;
+			flex-flow: row wrap;
+			height: 70vmin;
+			width: 70vmin;
+			border: 1ch solid;
+			border-radius: .3em;
+		}
+
+		#board > * {
+			-webkit-box-flex: 0;
+			-ms-flex: 0 1 7vmin;
+			flex: 0 1 7vmin;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			align-items: center;
+			-webkit-box-pack: center;
+			-ms-flex-pack: center;
+			justify-content: center;
+			height: 7vmin;
+			-webkit-transition: background 300ms linear;
+			transition: background 300ms linear;
+		}
+
+		#board:not(.started) > *:first-of-type::after {
+			content: '\f006';
+		}
+
+		#colors {
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-pack: justify;
+			-ms-flex-pack: justify;
+			justify-content: space-between;
+			margin-top: 1ch;
+		}
+
+		#colors > * {
+			-webkit-box-flex: 0;
+			-ms-flex: 0 1 7vmin;
+			flex: 0 1 7vmin;
+			height: 7vmin;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			align-items: center;
+			-webkit-box-pack: center;
+			-ms-flex-pack: center;
+			justify-content: center;
+			cursor: pointer;
+			border-radius: .3em;
+		}
+
+		.new-game {
+			pointer-events: auto;
+			cursor: pointer;
+			color: #cccbd8;
+		}
+
+		#game-over, #new-record {
+			position: absolute;
+			top: 40%;
+			left: 50%;
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			font-size: 2em;
+		}
+
+		#new-record input {
+			font-size: 60%;
+			z-index: 99;
+		}
+
+		#new-record button {
+			font-size: 55%;
+			border: 5px solid #dedede;
+			border-radius: 15px;
+		}
+
+		.hidden {
+			visibility: hidden;
+		}
+	</style>
+</head>
+<body>
+<main>
+	<span><a href="/index">回首页</a></span>
+	<div class="controls">
+		<div class="new-game">新游戏</div>
+		<div>记录:<span class="record" th:text="${score}">5</span> / <span class="best-userName" th:text="${userName}">kartist</span>
+		</div>
+		<div>步数<span class="moves">0</span> / <span>20</span></div>
+	</div>
+	<div id="board" class="">
+		<tile class="d-x"></tile>
+		<tile class="d-x"></tile>
+		<tile class="c"></tile>
+		<tile class="a"></tile>
+		<tile class="c"></tile>
+		<tile class="i"></tile>
+		<tile class="a"></tile>
+		<tile class="d"></tile>
+		<tile class="i"></tile>
+		<tile class="a"></tile>
+		<tile class="i"></tile>
+		<tile class="d-x"></tile>
+		<tile class="c"></tile>
+		<tile class="e"></tile>
+		<tile class="d"></tile>
+		<tile class="e"></tile>
+		<tile class="c"></tile>
+		<tile class="e"></tile>
+		<tile class="c"></tile>
+		<tile class="a"></tile>
+		<tile class="i"></tile>
+		<tile class="a"></tile>
+		<tile class="i"></tile>
+		<tile class="a"></tile>
+		<tile class="a"></tile>
+		<tile class="a"></tile>
+		<tile class="d"></tile>
+		<tile class="d"></tile>
+		<tile class="a"></tile>
+		<tile class="c"></tile>
+		<tile class="d"></tile>
+		<tile class="c"></tile>
+		<tile class="c"></tile>
+		<tile class="c"></tile>
+		<tile class="d"></tile>
+		<tile class="a"></tile>
+		<tile class="i"></tile>
+		<tile class="c"></tile>
+		<tile class="a"></tile>
+		<tile class="a"></tile>
+		<tile class="d"></tile>
+		<tile class="c"></tile>
+		<tile class="a"></tile>
+		<tile class="e"></tile>
+		<tile class="c"></tile>
+		<tile class="c"></tile>
+		<tile class="a"></tile>
+		<tile class="c"></tile>
+		<tile class="e"></tile>
+		<tile class="i"></tile>
+		<tile class="a"></tile>
+		<tile class="i"></tile>
+		<tile class="d"></tile>
+		<tile class="d"></tile>
+		<tile class="i"></tile>
+		<tile class="i"></tile>
+		<tile class="e"></tile>
+		<tile class="c"></tile>
+		<tile class="d"></tile>
+		<tile class="d"></tile>
+		<tile class="a"></tile>
+		<tile class="i"></tile>
+		<tile class="d"></tile>
+		<tile class="e"></tile>
+		<tile class="i"></tile>
+		<tile class="d"></tile>
+		<tile class="a"></tile>
+		<tile class="a"></tile>
+		<tile class="e"></tile>
+		<tile class="d"></tile>
+		<tile class="e"></tile>
+		<tile class="i"></tile>
+		<tile class="a"></tile>
+		<tile class="e"></tile>
+		<tile class="e"></tile>
+		<tile class="c"></tile>
+		<tile class="i"></tile>
+		<tile class="d"></tile>
+		<tile class="c"></tile>
+		<tile class="a"></tile>
+		<tile class="i"></tile>
+		<tile class="i"></tile>
+		<tile class="e"></tile>
+		<tile class="d"></tile>
+		<tile class="c"></tile>
+		<tile class="e"></tile>
+		<tile class="a"></tile>
+		<tile class="c"></tile>
+		<tile class="e"></tile>
+		<tile class="e"></tile>
+		<tile class="a"></tile>
+		<tile class="e"></tile>
+		<tile class="i"></tile>
+		<tile class="c"></tile>
+		<tile class="d"></tile>
+		<tile class="e"></tile>
+		<tile class="e"></tile>
+		<tile class="e"></tile>
+		<tile class="e"></tile>
+		<tile class="a"></tile>
+	</div>
+	<div id="colors">
+		<chip class="a"></chip>
+		<chip class="e"></chip>
+		<chip class="c"></chip>
+		<chip class="d"></chip>
+		<chip class="i"></chip>
+	</div>
+	<div id="game-over"></div>
+	<div id="new-record" class="hidden"><span>恭喜你,打破了记录!</span><br/>
+		<span>你的大名:<input id="userNameId"/></span>
+		<div>
+			<button id="saveRecord">保存记录并开始新游戏</button>
+		</div>
+	</div>
+</main>
+
+<script src="/js/jquery.js"></script>
+<script>
+    ((document) = > {
+        let moves = document.querySelector('.moves')
+        // ?
+        let board = document.querySelector('#board')
+        let colors = document.querySelector('#colors')
+        let gameover = document.querySelector('#game-over')
+        let newRecord = $("#new-record")
+
+        // control variables
+        let colorArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+
+        let running = false
+
+        let cell = '-x'
+        let skill = 5
+        let tally = 0
+        let cap = 20
+        let color
+        // 定义记录创建者
+        let bestUserName = document.querySelector(".best-userName")
+        // 定义最佳记录
+        let record = document.querySelector(".record")
+
+
+        //  game play methods
+        // ----------------------------
+        let shuffle = (collection) = > {
+        for(let i = collection.length;
+    i;
+    i--
+    )
+    {
+        let j = Math.floor(Math.random() * i);
+        [collection[i - 1], collection[j]] = [collection[j], collection[i - 1]]
+    }
+    return collection
+    }
+
+    let setColors = (collection, n) =
+    >
+    {
+        return n < 10 ? shuffle(collection).slice(0, n) : collection
+    }
+
+    let checkWin = (moves) =
+    >
+    {
+        var isContinue = false
+        let n = 0
+        let msg = ''
+        if (moves <= cap) {
+            if (board.childNodes[99].className.indexOf(cell) > -1) {
+                for (var i = 0; i < 100; i++) {
+                    if (board.childNodes[i].className.indexOf(cell) > -1) {
+                        n++
+                    }
+                }
+            }
+            if (n === 100) {
+                msg = '<span class="new-game" >恭喜你你成功了<br/>去挑战记录吧</span>'
+                running = false
+            } else if (n < 100 && moves >= cap) {
+                msg = '<span class="new-game">偶滴天<br/>你要再试一次了</span>'
+                running = false
+            }
+        }
+        if (!running) {
+            if (tally < record.innerHTML) {
+                newRecord.removeClass('hidden')
+            } else {
+                gameover.innerHTML = msg
+            }
+        }
+
+
+    }
+
+    let checkColor = (color) =
+    >
+    {
+        let tiles = board.childNodes
+        for (var x = 0; x < 100; x++) {
+            if (tiles[x].className.indexOf(cell) > -1) {
+                tiles[x].className = color + cell
+                if (x + 1 < 100 && tiles[x + 1].className === color) {
+                    tiles[x + 1].className += cell
+                }
+                if (x + 10 < 100 && tiles[x + 10].className === color) {
+                    tiles[x + 10].className += cell
+                }
+                if (x - 1 >= 0 && x % 10 > 0 && tiles[x - 1].className === color) {
+                    tiles[x - 1].className += cell
+                }
+                if (x - 10 >= 0 && x % 10 > 0 && tiles[x - 10].className === color) {
+                    tiles[x - 10].className += cell
+                }
+            }
+        }
+    }
+
+    let builder = (container, element, collection, count, randomize) =
+    >
+    {
+        container.innerHTML = ''
+        count = count || collection.length
+        randomize = randomize || false
+        for (let i = 0; i < count; i++) {
+            let child = document.createElement(element)
+            child.className = randomize ? collection[Math.floor((Math.random() * collection.length))] : collection[i]
+            container.appendChild(child)
+        }
+    }
+
+    function doNotSuccess() {
+        alert("请检查网络再试")
+    }
+
+    function newGame() {
+        $.post("newGame", function (result) {
+            if (result.success) {
+                let options = setColors(colorArray.slice(), skill)
+                tally = 0
+                moves.innerText = tally
+                //?
+                gameover.innerHTML = ''
+                running = true
+                builder(colors, 'chip', options)
+                builder(board, 'tile', options, 100, true)
+                color = board.childNodes[0].className
+                board.className = ''
+                board.childNodes[0].className = color + cell
+                checkColor(color)
+            } else {
+                doNotSuccess()
+            }
+        })
+    }
+
+    let play = (chip) =
+    >
+    {
+        $.post("step", '', function (result) {
+            if (result.success) {
+                if (running && color !== chip) {
+                    color = chip
+                    if (board.className !== 'started') {
+                        board.className = 'started'
+                    }
+                    tally++
+                    moves.innerHTML = tally
+                    //?
+                    checkColor(chip)
+                    checkWin(tally)
+                }
+            } else {
+                doNotSuccess()
+            }
+        })
+
+    }
+
+    document.addEventListener("DOMContentLoaded", () = > {
+        newGame()
+    }, false
+    )
+
+    document.addEventListener('click', (event) = > {
+        let css = Array.from(event.target.classList)
+        if(event.target.tagName === 'CHIP'
+    )
+    {
+        play(event.target.className)
+    }
+    else
+    if (css.includes('new-game')) {
+        newGame()
+    }
+    })
+
+
+    //定义保存记录的方法
+    $("body").on("click", "#saveRecord", function () {
+        var param = {"record": $(".moves").text(), "userName": $("#userNameId").val()}
+        $.post("record", param, function (result) {
+            if (result.success) {
+                $(".record").text(result.data.score)
+                $(".best-userName").text(result.data.userName)
+                $("#new-record").addClass("hidden")
+                newRecord.addClass('hidden')
+                newGame()
+            } else {
+                alert(result.message)
+            }
+        })
+    })
+
+    })
+    (document)
+
+
+</script>
+</body>
+</html>

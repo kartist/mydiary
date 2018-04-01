@@ -16,15 +16,29 @@
 		}
 
 		textarea {
-			width: 20em;
-			height: 10em;
-			font-size: 20px;
+			width: 15.5em;
+			height: 4.5em;
+			font-size: 1em;
+			line-height: 150%;
+		}
+
+		body {
+			font-size: 2em;
+		}
+
+		button {
+			font-size: 60%;
+		}
+
+		h4, h1 {
+			width: 25em;
+			word-wrap: break-word;
 		}
 	</style>
 </head>
 <body>
 <div>
-	<h4 th:text="${date2?:''}+' '+${user2?:''}">:</h4>
+	<h4 th:text="${date2?:''}+'  '+${user2?:''}">:</h4>
 </div>
 <div>
 	<h1 th:text="${msg2}">hello</h1>

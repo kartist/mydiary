@@ -5,6 +5,10 @@ public class Result {
     private boolean success = true;
     private Object data;
 
+    public Result() {
+        message = "OK";
+    }
+
     public Result(String message) {
         this.message = message;
     }

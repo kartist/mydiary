@@ -1,22 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>我的日记本</title>
+	<meta charset="UTF-8">
+	<title>我的日记本</title>
+	<style>
+		body {
+			font-size: 2em;
+
+		}
+
+		button {
+			font-size: 60%;
+		}
+
+	</style>
 </head>
 <body>
 <div>
-    <p>
-        欢迎!
-    </p>
-    <button onclick="toLogin()" value="abc" >登录</button>
-    <a href="/msgBord/index">
-        <button>留言板</button>
-    </a>
+	<p>
+		欢迎!
+	</p>
+	<button onclick="toLogin()" value="abc">登录</button>
+	<a href="/msgBord/index">
+		<button>留言板</button>
+	</a>
+	<div>
+		<a href="games/color">
+			<button>游戏:洪水大作战</button>
+		</a>
+	</div>
 </div>
 <script>
     function toLogin() {
-      window.location.href="/login"
+        window.location.href = "/login"
     }
 </script>
 </body>

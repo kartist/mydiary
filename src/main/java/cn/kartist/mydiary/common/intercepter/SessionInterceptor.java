@@ -1,6 +1,5 @@
 package cn.kartist.mydiary.common.intercepter;
 
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpSession;
  * @author Kartist 2018/1/25 21:43
  */
 public class SessionInterceptor implements HandlerInterceptor {
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session= request.getSession();
@@ -29,6 +29,6 @@ public class SessionInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
+        System.out.println("123");
     }
 }

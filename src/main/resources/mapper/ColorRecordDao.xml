@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.kartist.mydiary.core.dao.ColorRecordDao" >
+	<insert id="saveRecord" >
+		INSERT INTO color_record
+		(score, userName, createTime, updateTime)
+		VALUES (
+			#{score}, #{userName}, now(), now()
+		)
+	</insert >
+
+	<select id="selectTopRecord" resultType="cn.kartist.mydiary.core.entity.ColorRecord" >
+		SELECT
+			userName,
+			score
+		FROM color_record
+		ORDER BY score
+		LIMIT #{topNumber}
+	</select >
+</mapper >
