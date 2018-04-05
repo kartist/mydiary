@@ -21,7 +21,9 @@
 		用户名:<input name="name"><br/>
 		密 码:<input type="password" name="pwd">
 		<span th:text="${message}"></span><br/>
-		<input type="submit">
+		<input type="submit"> <span> </span>
+		<input type="hidden" name="tryTime" value="1">
 	</form>
+	<a href="/index"><button>返回首页</button></a>
 </body>
 </html>

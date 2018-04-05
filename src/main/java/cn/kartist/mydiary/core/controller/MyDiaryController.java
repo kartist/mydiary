@@ -54,7 +54,7 @@ public class MyDiaryController {
      * @return
      */
     @RequestMapping("login")
-    public String login(String name ,String pwd,HttpSession session,Model model) {
+    public String login(String name ,String pwd,Integer tryTime,HttpSession session,Model model) {
         if(" ".equals(name) && "shally".equals(pwd)){
             session.setAttribute("user", "shally");
             return "redirect:edit";
@@ -63,7 +63,10 @@ public class MyDiaryController {
             session.setAttribute("user","kartist");
             return "redirect:edit";
         }
-        model.addAttribute("message","用户名密码有问题");
+        if(tryTime!=null){
+            model.addAttribute("message","用户名密码有问题");
+        }
+
         return "login";
     }
 
