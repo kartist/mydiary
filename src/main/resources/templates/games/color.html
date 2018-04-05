@@ -187,7 +187,7 @@
 		<div class="new-game">新游戏</div>
 		<div>记录:<span class="record" th:text="${score}">5</span> / <span class="best-userName" th:text="${userName}">kartist</span>
 		</div>
-		<div>步数<span class="moves">0</span> / <span>20</span></div>
+		<div>步数<span class="moves">0</span> / <span>15</span></div>
 	</div>
 	<div id="board" class="">
 		<tile class="d-x"></tile>
@@ -325,7 +325,7 @@
         let cell = '-x'
         let skill = 5
         let tally = 0
-        let cap = 20
+        let cap = 15
         let color
         // 定义记录创建者
         let bestUserName = document.querySelector(".best-userName")
