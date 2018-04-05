@@ -309,7 +309,7 @@
 
 <script src="/js/jquery.js"></script>
 <script>
-    ((document) = > {
+    ((document) => {
         let moves = document.querySelector('.moves')
         // ?
         let board = document.querySelector('#board')
@@ -325,7 +325,7 @@
         let cell = '-x'
         let skill = 5
         let tally = 0
-        let cap = 15
+        let cap = 50
         let color
         // 定义记录创建者
         let bestUserName = document.querySelector(".best-userName")
@@ -335,7 +335,7 @@
 
         //  game play methods
         // ----------------------------
-        let shuffle = (collection) = > {
+        let shuffle = (collection) => {
         for(let i = collection.length;
     i;
     i--
@@ -347,14 +347,12 @@
     return collection
     }
 
-    let setColors = (collection, n) =
-    >
+    let setColors = (collection, n) =>
     {
         return n < 10 ? shuffle(collection).slice(0, n) : collection
     }
 
-    let checkWin = (moves) =
-    >
+    let checkWin = (moves) =>
     {
         var isContinue = false
         let n = 0
@@ -386,8 +384,7 @@
 
     }
 
-    let checkColor = (color) =
-    >
+    let checkColor = (color) =>
     {
         let tiles = board.childNodes
         for (var x = 0; x < 100; x++) {
@@ -409,8 +406,7 @@
         }
     }
 
-    let builder = (container, element, collection, count, randomize) =
-    >
+    let builder = (container, element, collection, count, randomize) =>
     {
         container.innerHTML = ''
         count = count || collection.length
@@ -447,8 +443,7 @@
         })
     }
 
-    let play = (chip) =
-    >
+    let play = (chip) =>
     {
         $.post("step", '', function (result) {
             if (result.success) {
@@ -470,12 +465,12 @@
 
     }
 
-    document.addEventListener("DOMContentLoaded", () = > {
+    document.addEventListener("DOMContentLoaded", () => {
         newGame()
     }, false
     )
 
-    document.addEventListener('click', (event) = > {
+    document.addEventListener('click', (event) => {
         let css = Array.from(event.target.classList)
         if(event.target.tagName === 'CHIP'
     )
