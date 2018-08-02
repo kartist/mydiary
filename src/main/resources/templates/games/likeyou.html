@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>撩你没商量</title>
+</head>
+<style>
+
+	body,.down-block{
+		background-color: #0f0f0f;
+		color : #2aabd2;
+	}
+	.body{
+		position: relative;
+		top: 100px;
+		padding: 0 101px;
+		line-height: 220%;
+		width: 600px;
+		margin: 0 auto;
+		border: 2px crimson solid;
+	}
+	.inner{
+		width: 80%;
+		display: block;
+	}
+	button{
+		background: beige;
+		border-collapse: collapse;
+		border: transparent;
+		width: 5em;
+		height: 2em;
+		margin: 0 1em;
+	}
+	button:hover{
+		background-color: #2aabd2;
+	}
+	.north{
+		height: 10em;
+	}
+</style>
+<body>
+
+	<div class="body">
+		<div class="left-block inner">
+			<div>
+				<span>小姐姐</span>
+				<br/>
+				<span>喜欢我吗?</span>
+			</div>
+		</div>
+		<div class="right-block inner">
+			<img />
+		</div>
+		<div class="down-block inner">
+			<div>
+				<button onclick="like(true)">喜欢啊</button>
+				<button id="notlike" onclick="like(false)">不喜欢</button>
+			</div>
+		</div>
+		<div class="north">
+			<div  id="show-block-id">
+
+			</div>
+		</div>
+	</div>
+
+</body>
+
+<script src="/js/jquery.js"></script>
+<script>
+	function like(like){
+	    var innerHtml;
+	    if(like){
+            innerHtml = "这么巧,我也是!";
+            document.getElementById("show-block-id").innerHTML=innerHtml;
+	    }
+	}
+
+    var $notlike = $("#notlike");
+    var btx = $notlike.offset().left;
+    var bty =  $notlike.offset().top;
+
+	$(function(){
+	    $("body").mouseover(function(){
+            $("html").on("mousemove",function(e){
+                mousex = e.pageX;
+                mousey = e.pageY;
+                $("#show-block-id").text((btx - mousex) + ", " + (bty - mousey));
+                var targetx = function(){
+                    return mousex - btx;
+                };
+                var targety = function(){
+                    return mousey - bty;
+                };
+
+
+                $("#notlike").attr("style","position: relative; top:"+targety() +"px; left:"+targetx()+"px;")
+            });
+	    });
+        $("body").mouseleave(function(){
+            $("#notlike").attr("style","");
+
+            $("html").unbind("mousemove");
+        })
+
+	})
+
+</script>
+</html>

@@ -18,7 +18,7 @@ public class IntercepterConfig extends WebMvcConfigurerAdapter {
                 excludePathPatterns("/index").
                 excludePathPatterns("/login").
                 excludePathPatterns("/msgBord/index").
-                excludePathPatterns("/games/**");
+                excludePathPatterns("/games/**").excludePathPatterns("/like");
         super.addInterceptors(registry);
     }
 
